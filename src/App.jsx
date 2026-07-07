@@ -5,11 +5,12 @@ import Sidebar from './components/Sidebar'
 import Stats from './components/Stats'
 import SearchBar from './components/SearchBar'
 import useFetch from './hooks/useFetch'
+import useLocalStorage from './hooks/useLocalStorage'
 
 function App() {
   const [searchText, setSearchText] = useState('')
-  const [favoritos, setFavoritos] = useState([])
-  const [bloqueados, setBloqueados] = useState([])
+  const [favoritos, setFavoritos] = useLocalStorage('favoritos', [])
+  const [bloqueados, setBloqueados] = useLocalStorage('bloqueados', [])
   const { data, loading, error } = useFetch(
     'https://pokeapi.co/api/v2/pokemon?limit=151'
   )
