@@ -8,6 +8,7 @@ import useFetch from './hooks/useFetch'
 
 function App() {
   const [searchText, setSearchText] = useState('')
+  const [favoritos, setFavoritos] = useState([])
   const { data, loading, error } = useFetch(
     'https://pokeapi.co/api/v2/pokemon?limit=151'
   )
@@ -17,11 +18,21 @@ function App() {
     return pokemon.name.toLowerCase().includes(searchText.toLowerCase())
   })
 
+  function toggleFavorito(pokemon) {
+    setFavoritos((current) => {
+      const alreadyFavorito = current.some((item) => item.name === pokemon.name)
+      if (alreadyFavorito) {
+        return current.filter((item) => item.name !== pokemon.name)
+      }
+      return [...current, pokemon]
+    })
+  }
+
   return (
     <div className="app-shell">
       <header className="app-header">
         <h1>Pokédex</h1>
-        <p>Explora Pokémon, busca por nombre y revisa estadísticas.</p>
+        <p>Explora Pokémons, busca por nombre y revisa su número de pokédex.</p>
       </header>
 
       <main className="app-layout">
@@ -45,14 +56,18 @@ function App() {
           )}
 
           {!loading && !error && filteredPokemons.length > 0 && (
-            <PokemonList pokemons={filteredPokemons} />
+            <PokemonList
+              pokemons={filteredPokemons}
+              favoritos={favoritos}
+              onToggleFavorito={toggleFavorito}
+            />
           )}
 
           <Stats />
         </section>
 
         <aside className="sidebar">
-          <Sidebar />
+          <Sidebar favoritos={favoritos} />
         </aside>
       </main>
 

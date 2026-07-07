@@ -5,7 +5,7 @@ function SearchBar({ value, onChange }) {
       <input
         id="pokemon-search"
         type="search"
-        placeholder="Escribe un nombre o número"
+        placeholder="Escribe un nombre"
         value={value}
         onChange={onChange}
       />

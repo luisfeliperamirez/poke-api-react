@@ -149,7 +149,7 @@
 .pokemon-card__body {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 }
 
 .pokemon-card__id {
@@ -162,6 +162,70 @@
   font-size: 0.95rem;
   text-transform: capitalize;
   color: #1f1f1f;
+}
+
+.pokemon-card__favorite {
+  border: 1px solid rgba(31, 31, 31, 0.12);
+  background: #ffffff;
+  color: #1f1f1f;
+  padding: 10px 12px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.pokemon-card__favorite:hover {
+  background: #f4f3f0;
+}
+
+.pokemon-card__favorite.active {
+  border-color: #dcbf53;
+  background: #fff7d9;
+}
+
+.favorites-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.favorite-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid rgba(31, 31, 31, 0.08);
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.favorite-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #f4f3f0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.favorite-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.favorite-item strong {
+  display: block;
+  text-transform: capitalize;
+  color: #1f1f1f;
+}
+
+.favorite-item span {
+  font-size: 0.75rem;
+  color: #6c6c75;
 }
 
 .status-message {

@@ -3,7 +3,7 @@ function getPokemonId(url) {
   return match ? match[1] : null
 }
 
-function PokemonList({ pokemons }) {
+function PokemonList({ pokemons, favoritos = [], onToggleFavorito }) {
   return (
     <section className="pokemon-list">
       <h2>Pokémon</h2>
@@ -13,6 +13,7 @@ function PokemonList({ pokemons }) {
           const imageUrl = id
             ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
             : ''
+          const isFavorito = favoritos.some((item) => item.name === pokemon.name)
 
           return (
             <article key={pokemon.name} className="pokemon-card">
@@ -26,6 +27,13 @@ function PokemonList({ pokemons }) {
               <div className="pokemon-card__body">
                 <span className="pokemon-card__id">#{id}</span>
                 <h3>{pokemon.name}</h3>
+                <button
+                  type="button"
+                  className={`pokemon-card__favorite ${isFavorito ? 'active' : ''}`}
+                  onClick={() => onToggleFavorito(pokemon)}
+                >
+                  {isFavorito ? 'Quitar favorito' : 'Agregar favorito'}
+                </button>
               </div>
             </article>
           )
