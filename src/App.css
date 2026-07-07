@@ -46,6 +46,11 @@
 .sidebar {
   position: sticky;
   top: 24px;
+  min-width: 0;
+}
+
+.sidebar-panel {
+  min-width: 0;
 }
 
 .panel {
@@ -183,6 +188,25 @@
   background: #fff7d9;
 }
 
+.pokemon-card__block {
+  border: 1px solid rgba(31, 31, 31, 0.12);
+  background: #ffffff;
+  color: #1f1f1f;
+  padding: 10px 12px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.pokemon-card__block:hover {
+  background: #f4f3f0;
+}
+
+.pokemon-card__block.blocked {
+  border-color: #d9534f;
+  background: #ffeaea;
+}
+
 .favorites-list {
   list-style: none;
   margin: 0;
@@ -195,16 +219,23 @@
   display: flex;
   gap: 12px;
   align-items: center;
+  flex-wrap: wrap;
   padding: 12px;
   border: 1px solid rgba(31, 31, 31, 0.08);
   border-radius: 16px;
   background: #ffffff;
+  min-width: 0;
+}
+
+.favorite-item > div {
+  min-width: 0;
+  flex: 1 1 auto;
 }
 
 .favorite-thumb {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   background: #f4f3f0;
   display: grid;
   place-items: center;
@@ -212,9 +243,12 @@
 }
 
 .favorite-thumb img {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: contain;
+  display: block;
 }
 
 .favorite-item strong {
@@ -226,6 +260,52 @@
 .favorite-item span {
   font-size: 0.75rem;
   color: #6c6c75;
+}
+
+.blocked-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.blocked-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 12px;
+  border: 1px solid rgba(31, 31, 31, 0.08);
+  border-radius: 16px;
+  background: #ffffff;
+  min-width: 0;
+}
+
+.blocked-item > div {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.blocked-item strong {
+  display: block;
+  color: #1f1f1f;
+}
+
+.blocked-unlock {
+  margin-left: auto;
+  border: 1px solid rgba(31, 31, 31, 0.12);
+  background: #ffffff;
+  color: #1f1f1f;
+  padding: 8px 10px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.blocked-unlock:hover {
+  background: #f4f3f0;
 }
 
 .status-message {
@@ -266,6 +346,20 @@
 
   .sidebar {
     position: static;
+  }
+
+  .blocked-item,
+  .favorite-item {
+    flex-wrap: wrap;
+  }
+
+  .favorite-item > div,
+  .blocked-item > div {
+    min-width: 0;
+  }
+
+  .blocked-unlock {
+    margin-left: 0;
   }
 }
 

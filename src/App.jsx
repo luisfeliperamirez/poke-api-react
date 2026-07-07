@@ -9,16 +9,23 @@ import useFetch from './hooks/useFetch'
 function App() {
   const [searchText, setSearchText] = useState('')
   const [favoritos, setFavoritos] = useState([])
+  const [bloqueados, setBloqueados] = useState([])
   const { data, loading, error } = useFetch(
     'https://pokeapi.co/api/v2/pokemon?limit=151'
   )
 
   const pokemons = data?.results || []
-  const filteredPokemons = pokemons.filter((pokemon) => {
-    return pokemon.name.toLowerCase().includes(searchText.toLowerCase())
-  })
+  const filteredPokemons = pokemons
+    .filter((pokemon) => !bloqueados.some((blocked) => blocked.name === pokemon.name))
+    .filter((pokemon) =>
+      pokemon.name.toLowerCase().includes(searchText.toLowerCase())
+    )
 
   function toggleFavorito(pokemon) {
+    if (bloqueados.some((blocked) => blocked.name === pokemon.name)) {
+      return
+    }
+
     setFavoritos((current) => {
       const alreadyFavorito = current.some((item) => item.name === pokemon.name)
       if (alreadyFavorito) {
@@ -26,6 +33,27 @@ function App() {
       }
       return [...current, pokemon]
     })
+  }
+
+  function toggleBloqueado(pokemon) {
+    setBloqueados((current) => {
+      const alreadyBloqueado = current.some((item) => item.name === pokemon.name)
+      if (alreadyBloqueado) {
+        return current.filter((item) => item.name !== pokemon.name)
+      }
+
+      setFavoritos((currentFavorites) =>
+        currentFavorites.filter((item) => item.name !== pokemon.name)
+      )
+
+      return [...current, pokemon]
+    })
+  }
+
+  function desbloquearPokemon(pokemon) {
+    setBloqueados((current) =>
+      current.filter((item) => item.name !== pokemon.name)
+    )
   }
 
   return (
@@ -59,15 +87,25 @@ function App() {
             <PokemonList
               pokemons={filteredPokemons}
               favoritos={favoritos}
+              bloqueados={bloqueados}
               onToggleFavorito={toggleFavorito}
+              onToggleBloqueado={toggleBloqueado}
             />
           )}
 
-          <Stats />
+          <Stats
+            totalPokemon={pokemons.length}
+            totalFavoritos={favoritos.length}
+            totalBloqueados={bloqueados.length}
+          />
         </section>
 
         <aside className="sidebar">
-          <Sidebar favoritos={favoritos} />
+          <Sidebar
+            favoritos={favoritos}
+            bloqueados={bloqueados}
+            onDesbloquear={desbloquearPokemon}
+          />
         </aside>
       </main>
 

@@ -3,7 +3,7 @@ function getPokemonId(url) {
   return match ? match[1] : null
 }
 
-function PokemonList({ pokemons, favoritos = [], onToggleFavorito }) {
+function PokemonList({ pokemons, favoritos = [], bloqueados = [], onToggleFavorito, onToggleBloqueado }) {
   return (
     <section className="pokemon-list">
       <h2>Pokémon</h2>
@@ -14,6 +14,7 @@ function PokemonList({ pokemons, favoritos = [], onToggleFavorito }) {
             ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
             : ''
           const isFavorito = favoritos.some((item) => item.name === pokemon.name)
+          const isBloqueado = bloqueados.some((item) => item.name === pokemon.name)
 
           return (
             <article key={pokemon.name} className="pokemon-card">
@@ -33,6 +34,13 @@ function PokemonList({ pokemons, favoritos = [], onToggleFavorito }) {
                   onClick={() => onToggleFavorito(pokemon)}
                 >
                   {isFavorito ? 'Quitar favorito' : 'Agregar favorito'}
+                </button>
+                <button
+                  type="button"
+                  className={`pokemon-card__block ${isBloqueado ? 'blocked' : ''}`}
+                  onClick={() => onToggleBloqueado(pokemon)}
+                >
+                  {isBloqueado ? 'Desbloquear' : 'Bloquear'}
                 </button>
               </div>
             </article>
