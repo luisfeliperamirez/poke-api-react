@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './App.css'
 import PokemonList from './components/PokemonList'
 import Sidebar from './components/Sidebar'
@@ -6,9 +7,15 @@ import SearchBar from './components/SearchBar'
 import useFetch from './hooks/useFetch'
 
 function App() {
+  const [searchText, setSearchText] = useState('')
   const { data, loading, error } = useFetch(
     'https://pokeapi.co/api/v2/pokemon?limit=151'
   )
+
+  const pokemons = data?.results || []
+  const filteredPokemons = pokemons.filter((pokemon) => {
+    return pokemon.name.toLowerCase().includes(searchText.toLowerCase())
+  })
 
   return (
     <div className="app-shell">
@@ -19,7 +26,10 @@ function App() {
 
       <main className="app-layout">
         <section className="main-content">
-          <SearchBar />
+          <SearchBar
+            value={searchText}
+            onChange={(event) => setSearchText(event.target.value)}
+          />
 
           {loading && <p className="status-message">Cargando...</p>}
           {error && (
@@ -28,7 +38,15 @@ function App() {
             </p>
           )}
 
-          {!loading && !error && <PokemonList pokemons={data?.results || []} />}
+          {!loading && !error && filteredPokemons.length === 0 && (
+            <p className="status-message status-empty">
+              No se encontraron Pokémon con ese nombre.
+            </p>
+          )}
+
+          {!loading && !error && filteredPokemons.length > 0 && (
+            <PokemonList pokemons={filteredPokemons} />
+          )}
 
           <Stats />
         </section>

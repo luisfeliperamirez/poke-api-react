@@ -164,6 +164,27 @@
   color: #1f1f1f;
 }
 
+.status-message {
+  margin: 0;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: #f4f3f0;
+  color: #4f4f5b;
+  border: 1px solid rgba(31, 31, 31, 0.08);
+}
+
+.status-error {
+  background: #ffeeee;
+  color: #b42d2d;
+  border-color: rgba(180, 45, 45, 0.18);
+}
+
+.status-empty {
+  background: #ffeeee;
+  color: #8a3737;
+  border-color: rgba(55, 90, 138, 0.18);
+}
+
 .app-footer {
   padding: 20px 24px;
   text-align: center;
