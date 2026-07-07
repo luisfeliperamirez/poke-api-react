@@ -1,0 +1,150 @@
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.app-header,
+.panel,
+.app-footer {
+  background: #ffffff;
+  border: 1px solid rgba(31, 31, 31, 0.12);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+.app-header {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.app-header h1 {
+  margin: 0;
+  color: #1f1f1f;
+}
+
+.app-header p {
+  font-size: 0.92rem;
+  color: #6c6c75;
+}
+
+.app-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 24px;
+  align-items: start;
+}
+
+.main-content {
+  display: grid;
+  gap: 24px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 24px;
+}
+
+.panel {
+  padding: 22px;
+}
+
+.search-bar,
+.pokemon-list,
+.stats-panel,
+.sidebar-panel {
+  background: #f9f8f6;
+  border: 1px solid rgba(31, 31, 31, 0.08);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.search-bar {
+  display: grid;
+  gap: 14px;
+}
+
+.search-bar label {
+  color: #4f4f5b;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(31, 31, 31, 0.12);
+  border-radius: 14px;
+  background: #ffffff;
+  color: #1f1f1f;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-bar input::placeholder {
+  color: rgba(31, 31, 31, 0.35);
+}
+
+.search-bar input:focus {
+  border-color: #a09b87;
+  box-shadow: 0 0 0 4px rgba(220, 191, 83, 0.16);
+}
+
+.pokemon-list h2,
+.stats-panel h2,
+.sidebar-panel h2 {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  color: #1f1f1f;
+}
+
+.pokemon-list p,
+.stats-panel p,
+.sidebar-panel p {
+  color: #5d5d69;
+  line-height: 1.6;
+}
+
+.app-footer {
+  padding: 20px 24px;
+  text-align: center;
+}
+
+.app-footer p {
+  color: #292929; /* Color de mi nombre */
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  #root {
+    padding: 16px;
+  }
+
+  .app-header,
+  .panel,
+  .app-footer {
+    border-radius: 18px;
+  }
+
+  .app-header {
+    padding: 18px 20px;
+  }
+
+  .app-footer {
+    padding: 18px 20px;
+  }
+}
