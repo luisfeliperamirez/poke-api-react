@@ -71,6 +71,12 @@ function App() {
             onChange={(event) => setSearchText(event.target.value)}
           />
 
+          <Stats
+            totalPokemon={pokemons.length}
+            totalFavoritos={favoritos.length}
+            totalBloqueados={bloqueados.length}
+          />
+
           {loading && <p className="status-message">Cargando...</p>}
           {error && (
             <p className="status-message status-error">
@@ -93,12 +99,6 @@ function App() {
               onToggleBloqueado={toggleBloqueado}
             />
           )}
-
-          <Stats
-            totalPokemon={pokemons.length}
-            totalFavoritos={favoritos.length}
-            totalBloqueados={bloqueados.length}
-          />
         </section>
 
         <aside className="sidebar">
